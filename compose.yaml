@@ -1,0 +1,41 @@
+services:
+  frontend:
+    image: node:lts-alpine
+    container_name: frontend
+    working_dir: /home/node/app
+    command: sh -c "npm i && npm run dev"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./frontend:/home/node/app"
+
+  api:
+    image: node:lts-alpine
+    container_name: api
+    working_dir: /home/node/app
+    command: sh -c "npm i && npm run dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./api:/home/node/app"
+
+  db:
+    image: postgres:17
+    container_name: db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: swarm
+      POSTGRES_PASSWORD: swarm
+      POSGRES_DB: ecommerce
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres:
