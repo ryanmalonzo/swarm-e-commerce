@@ -1,4 +1,10 @@
-import { date, integer, pgTable, primaryKey, varchar } from "drizzle-orm/pg-core";
+import {
+  date,
+  integer,
+  pgTable,
+  primaryKey,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -30,23 +36,26 @@ export const productsToOrders = pgTable(
       .references(() => products.id),
     orderId: integer("order_id")
       .notNull()
-      .references(() => orders.id)
+      .references(() => orders.id),
   },
   (t) => ({
-    pk: primaryKey({ columns: [t.productId, t.orderId] })
+    pk: primaryKey({ columns: [t.productId, t.orderId] }),
   }),
 );
 
-export const productsToOrdersRelations = relations(productsToOrders, ({ one }) => ({
-  product: one(products, {
-    fields: [productsToOrders.productId],
-    references: [products.id],
+export const productsToOrdersRelations = relations(
+  productsToOrders,
+  ({ one }) => ({
+    product: one(products, {
+      fields: [productsToOrders.productId],
+      references: [products.id],
+    }),
+    order: one(orders, {
+      fields: [productsToOrders.orderId],
+      references: [orders.id],
+    }),
   }),
-  order: one(orders, {
-    fields: [productsToOrders.orderId],
-    references: [orders.id],
-  }),
-}));
+);
 
 export const productsRelations = relations(products, ({ many }) => ({
   productsToOrders: many(productsToOrders),
@@ -55,8 +64,7 @@ export const productsRelations = relations(products, ({ many }) => ({
 export const ordersRelations = relations(orders, ({ one, many }) => ({
   user: one(users, {
     fields: [orders.userId],
-    references: [users.id]
+    references: [users.id],
   }),
   productsToOrders: many(productsToOrders),
 }));
-
