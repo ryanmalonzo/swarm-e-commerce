@@ -43,12 +43,15 @@ function Layout({ children }) {
             </Box>
             {user
               ? (
-                <Box sx={{ display: "flex", gap: 3 }}>
+                <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
                   <Link to="/cart">
                     <IconButton sx={{ color: "white" }}>
                       <ShoppingCart />
                     </IconButton>
                   </Link>
+
+                  <Typography>Bienvenue, {user.firstName}</Typography>
+
                   <Link to="/logout" style={{ color: "white" }}>
                     <Button color="inherit">Déconnexion</Button>
                   </Link>

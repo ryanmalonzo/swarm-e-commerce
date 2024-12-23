@@ -1,5 +1,5 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express from "express";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "./src/db/schema";
@@ -12,15 +12,33 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-app.get("/products", async (_, res: Response) => {
+app.get("/products", async (_, res) => {
   res.status(200).json(await db.query.products.findMany());
 });
 
-app.post("/login", async (req: Request, res: Response) => {
+app.post("/register", async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
+
+  try {
+    const user = await db.insert(schema.users).values({
+      firstName,
+      lastName,
+      email,
+      password,
+    }).returning();
+
+    res.status(201).json(user[0]);
+  } catch {
+    res.sendStatus(409);
+    return;
+  }
+});
+
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await db.query.users.findFirst({
-    where: (users, { eq }) =>
-      eq(users.email, email) && eq(users.password, password),
+    where: (users, { and, eq }) =>
+      and(eq(users.email, email), eq(users.password, password)),
   });
 
   if (!user) {
@@ -31,7 +49,7 @@ app.post("/login", async (req: Request, res: Response) => {
   res.status(200).json(user);
 });
 
-app.post("/orders", async (req: Request, res: Response) => {
+app.post("/orders", async (req, res) => {
   const { userId, products } = req.body;
   const order = await db.insert(schema.orders).values({
     userId,
@@ -47,7 +65,7 @@ app.post("/orders", async (req: Request, res: Response) => {
   res.sendStatus(201);
 });
 
-app.get("/orders", async (req: Request, res: Response) => {
+app.get("/orders", async (req, res) => {
   const { user_id: userId } = req.query;
   res.status(200).json(
     await db.query.orders.findMany({

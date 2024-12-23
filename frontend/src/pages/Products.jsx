@@ -9,8 +9,8 @@ function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const json = await ky.get("/api/products").json();
-      setProducts(json);
+      const products = await ky.get("/api/products").json();
+      setProducts(products);
     };
 
     fetchProducts();

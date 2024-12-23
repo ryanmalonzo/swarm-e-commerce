@@ -4,7 +4,9 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
-function Login() {
+function Register() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,8 +16,10 @@ function Login() {
     e.preventDefault();
 
     try {
-      const user = await ky.post("/api/login", {
+      const user = await ky.post("/api/register", {
         json: {
+          firstName,
+          lastName,
           email,
           password,
         },
@@ -43,7 +47,24 @@ function Login() {
           width: "500px",
         }}
       >
-        <Typography variant="h4" alignSelf="start">Connexion</Typography>
+        <Typography variant="h4" alignSelf="start">Inscription</Typography>
+
+        <Box sx={{ display: "flex", gap: 3, width: "100%" }}>
+          <TextField
+            label="Prénom"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            fullWidth
+          />
+          <TextField
+            label="Nom"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            fullWidth
+          />
+        </Box>
 
         <TextField
           type="email"
@@ -61,15 +82,14 @@ function Login() {
           required
           fullWidth
         />
+        <Button type="submit" variant="contained" fullWidth>Inscription</Button>
 
-        <Button type="submit" variant="contained" fullWidth>Connexion</Button>
-
-        <Link to="/register">
-          <Typography>Pas encore de compte ? Inscrivez-vous</Typography>
+        <Link to="/login">
+          <Typography>Déjà un compte ? Connectez-vous</Typography>
         </Link>
       </Box>
     </Layout>
   );
 }
 
-export default Login;
+export default Register;

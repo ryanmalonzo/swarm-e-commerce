@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import Products from "./pages/Products.jsx";
+import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Logout from "./pages/Logout.jsx";
 import Cart from "./pages/Cart.jsx";
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")).render(
     <Routes>
       <Route path="/" element={<Products />} />
       <Route path="/products" element={<Products />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/orders" element={<Orders />} />

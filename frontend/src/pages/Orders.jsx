@@ -14,8 +14,8 @@ function Orders() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const json = await ky.get("/api/products").json();
-        setProducts(json);
+        const products = await ky.get("/api/products").json();
+        setProducts(products);
       } catch {
         navigate("/");
       }
@@ -37,8 +37,8 @@ function Orders() {
 
       const fetchOrders = async (userId) => {
         try {
-          const json = await ky.get(`/api/orders?user_id=${userId}`).json();
-          setOrders(json);
+          const orders = await ky.get(`/api/orders?user_id=${userId}`).json();
+          setOrders(orders);
         } catch {
           return;
         }
@@ -63,29 +63,34 @@ function Orders() {
           width: 400,
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
           gap: 3,
           flexWrap: "wrap",
         }}
       >
-        {orders.length > 0 && orders.map((order) => (
-          <Card key={order.id}>
-            <CardContent>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h6">Date : {order.date}</Typography>
-                <Typography variant="h6">#{order.id}</Typography>
-              </Box>
-              <Typography variant="subtitle1">
-                En cours de traitement
-              </Typography>
-              <Box sx={{ py: 1 }} />
-              {order.productsToOrders.map((product) => (
-                <Typography key={product.productId}>
-                  {getProductName(product.productId)}
+        {!orders.length && (
+          <Typography>Vous n&apos;avez pas de commande</Typography>
+        )}
+        {orders.length > 0 &&
+          orders.map((order) => (
+            <Card key={order.id} sx={{ width: "100%" }}>
+              <CardContent>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography variant="h6">Date : {order.date}</Typography>
+                  <Typography variant="h6">#{order.id}</Typography>
+                </Box>
+                <Typography variant="subtitle1">
+                  En cours de traitement
                 </Typography>
-              ))}
-            </CardContent>
-          </Card>
-        ))}
+                <Box sx={{ py: 1 }} />
+                {order.productsToOrders.map((product) => (
+                  <Typography key={product.productId}>
+                    {getProductName(product.productId)}
+                  </Typography>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
       </Box>
     </Layout>
   );
