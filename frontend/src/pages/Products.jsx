@@ -4,7 +4,7 @@ import Product from "../components/Product";
 import ky from "ky";
 import { Box } from "@mui/material";
 
-function Home() {
+function Products() {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -39,4 +39,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Products;

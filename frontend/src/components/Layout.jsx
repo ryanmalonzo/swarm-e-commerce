@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router";
 
 function Layout({ children }) {
   const [user, setUser] = useState(null);
@@ -23,15 +24,27 @@ function Layout({ children }) {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" component="div">
-              Swarm
-            </Typography>
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+              <Typography variant="h6" component="div">
+                Swarm
+              </Typography>
+            </Link>
             <Box sx={{ flex: 1, pl: 5 }}>
-              <Button color="inherit">Produits</Button>
+              <Link to="/" style={{ color: "white" }}>
+                <Button color="inherit">Produits</Button>
+              </Link>
             </Box>
             {user
-              ? <Button color="inherit">Bienvenue</Button>
-              : <Button color="inherit">Connexion</Button>}
+              ? (
+                <Link to="/logout" style={{ color: "white" }}>
+                  <Button color="inherit">Déconnexion</Button>
+                </Link>
+              )
+              : (
+                <Link to="/login" style={{ color: "white" }}>
+                  <Button color="inherit">Connexion</Button>
+                </Link>
+              )}
           </Toolbar>
         </AppBar>
       </Box>

@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import PropTypes from "prop-types";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 function Product({ product }) {
   const { name, price, imageUrl } = product;
@@ -15,6 +16,7 @@ function Product({ product }) {
       <CardActionArea>
         <CardMedia
           component="img"
+          width="400"
           height="275"
           image={imageUrl}
           alt={name}
@@ -29,8 +31,12 @@ function Product({ product }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Acheter
+        <Button
+          size="small"
+          color="primary"
+          startIcon={<AddShoppingCartIcon />}
+        >
+          Ajouter
         </Button>
       </CardActions>
     </Card>
