@@ -1,13 +1,13 @@
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Snackbar } from "@mui/material";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardActions from "@mui/material/CardActions";
 import PropTypes from "prop-types";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 

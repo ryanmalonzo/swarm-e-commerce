@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
-import Layout from "../components/Layout.jsx";
-import { useNavigate } from "react-router";
-import CartProduct from "../components/CartProduct.jsx";
-import { useState } from "react";
 import { Box, Button, Snackbar, Typography } from "@mui/material";
 import ky from "ky";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import CartProduct from "../components/CartProduct.jsx";
+import Layout from "../components/Layout.jsx";
 
 function Cart() {
   const userId = useRef(null);

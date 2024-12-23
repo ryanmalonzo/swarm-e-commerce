@@ -1,14 +1,13 @@
+import { ShoppingCart } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { useState } from "react";
-import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { IconButton } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
 
 function Layout({ children }) {
   const [user, setUser] = useState(null);

@@ -1,7 +1,7 @@
 import cors from "cors";
-import express from "express";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
+import express from "express";
 import * as schema from "./src/db/schema";
 
 const db = drizzle(process.env.DATABASE_URL!, { schema });

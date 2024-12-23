@@ -1,8 +1,8 @@
+import { Box } from "@mui/material";
+import ky from "ky";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Product from "../components/Product";
-import ky from "ky";
-import { Box } from "@mui/material";
 
 function Products() {
   const [products, setProducts] = useState([]);
