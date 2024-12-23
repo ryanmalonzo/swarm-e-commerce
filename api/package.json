@@ -4,13 +4,14 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx index.ts",
+    "dev": "tsx --watch index.ts",
     "start": "tsc && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.2",
     "express": "^4.21.2",

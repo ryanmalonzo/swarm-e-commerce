@@ -12,7 +12,7 @@ async function main() {
     firstName: "Bruce",
     lastName: "Wayne",
     email: "bruce.wayne@esgi.fr",
-    password: "robin123",
+    password: "test123",
   };
 
   await db.insert(users).values(user);
