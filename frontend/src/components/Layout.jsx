@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
+import { IconButton } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 
 function Layout({ children }) {
   const [user, setUser] = useState(null);
@@ -29,16 +31,28 @@ function Layout({ children }) {
                 Swarm
               </Typography>
             </Link>
-            <Box sx={{ flex: 1, pl: 5 }}>
-              <Link to="/" style={{ color: "white" }}>
+            <Box sx={{ display: "flex", flex: 1, pl: 5, gap: 3 }}>
+              <Link to="/products" style={{ color: "white" }}>
                 <Button color="inherit">Produits</Button>
               </Link>
+              {user && (
+                <Link to="/orders" style={{ color: "white" }}>
+                  <Button color="inherit">Commandes</Button>
+                </Link>
+              )}
             </Box>
             {user
               ? (
-                <Link to="/logout" style={{ color: "white" }}>
-                  <Button color="inherit">Déconnexion</Button>
-                </Link>
+                <Box sx={{ display: "flex", gap: 3 }}>
+                  <Link to="/cart">
+                    <IconButton sx={{ color: "white" }}>
+                      <ShoppingCart />
+                    </IconButton>
+                  </Link>
+                  <Link to="/logout" style={{ color: "white" }}>
+                    <Button color="inherit">Déconnexion</Button>
+                  </Link>
+                </Box>
               )
               : (
                 <Link to="/login" style={{ color: "white" }}>

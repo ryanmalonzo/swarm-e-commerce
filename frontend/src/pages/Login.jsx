@@ -22,6 +22,7 @@ function Login() {
       }).json();
 
       localStorage.setItem("user", JSON.stringify(json));
+      localStorage.setItem("cart", JSON.stringify([]));
 
       navigate("/");
     } catch {

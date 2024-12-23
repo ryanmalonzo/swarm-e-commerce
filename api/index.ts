@@ -48,19 +48,13 @@ app.post("/orders", async (req: Request, res: Response) => {
 });
 
 app.get("/orders", async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { user_id: userId } = req.query;
   res.status(200).json(
     await db.query.orders.findMany({
-      where: (orders, { eq }) => eq(orders.userId, Number(id)),
-    }),
-  );
-});
-
-app.get("/orders/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.status(200).json(
-    await db.query.orders.findFirst({
-      where: (orders, { eq }) => eq(orders.id, Number(id)),
+      where: (orders, { eq }) => eq(orders.userId, Number(userId)),
+      with: {
+        productsToOrders: true,
+      },
     }),
   );
 });

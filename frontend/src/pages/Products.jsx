@@ -7,12 +7,12 @@ import { Box } from "@mui/material";
 function Products() {
   const [products, setProducts] = useState([]);
 
-  const fetchProducts = async () => {
-    const json = await ky.get("/api/products").json();
-    setProducts(json);
-  };
-
   useEffect(() => {
+    const fetchProducts = async () => {
+      const json = await ky.get("/api/products").json();
+      setProducts(json);
+    };
+
     fetchProducts();
   }, []);
 
@@ -27,7 +27,7 @@ function Products() {
           gap: 3,
         }}
       >
-        {products.length &&
+        {products.length > 0 &&
           products.map((product) => (
             <Product
               key={product.id}
