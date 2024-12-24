@@ -27,7 +27,7 @@ function Layout({ children }) {
           <Toolbar>
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
               <Typography variant="h6" component="div">
-                Swarm
+                ClassicWheels
               </Typography>
             </Link>
             <Box sx={{ display: "flex", flex: 1, pl: 5, gap: 3 }}>
