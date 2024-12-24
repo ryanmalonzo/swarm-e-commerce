@@ -14,8 +14,6 @@ services:
     container_name: api
     working_dir: /home/node/app
     command: sh -c "npm i && npm run dev"
-    ports:
-      - "3000:3000"
     volumes:
       - "./api:/home/node/app"
 
