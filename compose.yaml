@@ -13,7 +13,7 @@ services:
     image: node:lts-alpine
     container_name: api
     working_dir: /home/node/app
-    command: sh -c "npm i && npm run dev"
+    command: sh -c "npm i && npm run data && npm run dev"
     volumes:
       - "./api:/home/node/app"
 
