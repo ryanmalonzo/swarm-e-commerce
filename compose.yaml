@@ -1,25 +1,16 @@
 services:
-  frontend:
-    image: node:lts-alpine
-    container_name: frontend
-    working_dir: /home/node/app
-    command: sh -c "npm i && npm run dev"
+  nginx:
+    image: ryanmalonzo/classicwheels-frontend
     ports:
-      - "8080:8080"
-    volumes:
-      - "./frontend:/home/node/app"
+      - "80:80"
+    depends_on:
+      - api
 
   api:
-    image: node:lts-alpine
-    container_name: api
-    working_dir: /home/node/app
-    command: sh -c "npm i && npm run dev"
-    volumes:
-      - "./api:/home/node/app"
+    image: ryanmalonzo/classicwheels-api
 
   db:
     image: postgres:17
-    container_name: db
     volumes:
       - "postgres:/var/lib/postgresql/data"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
@@ -27,14 +18,6 @@ services:
       POSTGRES_USER: swarm
       POSTGRES_PASSWORD: swarm
       POSTGRES_DB: ecommerce
-
-  adminer:
-    image: adminer
-    container_name: adminer
-    ports:
-      - "8081:8080"
-    depends_on:
-      - db
 
 volumes:
   postgres:
