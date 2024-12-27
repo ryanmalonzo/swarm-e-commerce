@@ -1,0 +1,55 @@
+services:
+  frontend:
+    image: ryanmalonzo/classicwheels-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        max_failure_ratio: 0.33
+      resources:
+        limits:
+          cpus: '0.25'
+      placement:
+        preferences:
+          - spread: node.id
+
+  api:
+    image: ryanmalonzo/classicwheels-api
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        max_failure_ratio: 0.33
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '256M'
+      placement:
+        preferences:
+          - spread: node.id
+
+  db:
+    image: postgres:17
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+    environment:
+      POSTGRES_USER: swarm
+      POSTGRES_PASSWORD: swarm
+      POSTGRES_DB: ecommerce
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+volumes:
+  postgres:
