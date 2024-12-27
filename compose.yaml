@@ -1,6 +1,7 @@
 services:
-  nginx:
+  frontend:
     image: ryanmalonzo/classicwheels-frontend
+    container_name: classicwheels-frontend
     ports:
       - "80:80"
     depends_on:
@@ -8,9 +9,11 @@ services:
 
   api:
     image: ryanmalonzo/classicwheels-api
+    container_name: classicwheels-api
 
   db:
     image: postgres:17
+    container_name: classicwheels-db
     volumes:
       - "postgres:/var/lib/postgresql/data"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
@@ -18,6 +21,12 @@ services:
       POSTGRES_USER: swarm
       POSTGRES_PASSWORD: swarm
       POSTGRES_DB: ecommerce
+
+  adminer:
+    image: adminer
+    container_name: classicwheels-adminer
+    ports:
+      - "8080:8080"
 
 volumes:
   postgres:
